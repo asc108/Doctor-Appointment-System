@@ -1,7 +1,6 @@
 package com.root.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.root.controller.dto.ChangePasswordDTO;
 import com.root.controller.dto.NewUserRequest;
 import com.root.model.User;
-import com.root.model.UserRole;
 import com.root.repository.UserRepository;
+import com.root.security.jwt.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,10 +20,11 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final JwtService jwtService;
 
 	public void registerUser(NewUserRequest request) {
 		User user = User.builder().username(request.username()).password(passwordEncoder().encode(request.password()))
-				.email(request.email()).number(request.number()).userRole(UserRole.PATIENT).build();
+				.email(request.email()).number(request.number()).role("USER").build();
 		User u = userRepository.findUserByUsername(request.username());
 		if(u == null) {
 			userRepository.save(user);
@@ -34,7 +34,7 @@ public class UserService {
 
 	}
 
-	@Bean
+	
 	private PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 
@@ -59,6 +59,14 @@ public class UserService {
 		User user = userRepository.findUserByUsername(username);
 		user.setPassword(request.password());
 		
+	}
+	public String generateToken(String username) {
+		return jwtService.generateToken(username);
+
+	}
+
+	public void validateToken(String token) {
+		jwtService.validateToken(token);
 	}
 
 }

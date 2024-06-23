@@ -29,7 +29,7 @@ public class User {
 	private String email;
 	
 	private int number;
-	private UserRole userRole;
+	private String role;
 	
 
 	
