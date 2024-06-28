@@ -65,10 +65,10 @@ public class UserController {
 
 	}
 
-	@GetMapping("/get/{username}")
+	@GetMapping("/get")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public User getUser(@PathVariable String username) {
-		return userService.getAllUsers(username);
+	public User getUser(@RequestParam("username") String username) {
+		return userService.findUser(username);
 	}
 
 	@PatchMapping("/{username}")

@@ -28,16 +28,16 @@ public class Patient {
 	@Column(name = "patient_id")
 	private int id;
 
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	private Date dateOfBirth;
 	private String contactInfo;
 	@Column(columnDefinition = "LONGTEXT")
 	private String additionalInfo;
 	
 	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "record_id")
+	private MedicalRecord record;
 	
 
 }

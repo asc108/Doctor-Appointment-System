@@ -24,8 +24,8 @@ public class UserService {
 
 	public void registerUser(NewUserRequest request) {
 		User user = User.builder().username(request.username()).password(passwordEncoder().encode(request.password()))
-				.email(request.email()).number(request.number()).role("USER").build();
-		User u = userRepository.findUserByUsername(request.username());
+				.firstname(request.firstName()).lastname(request.lastName()).email(request.email()).number(request.number()).role("USER").build();
+		User u = userRepository.findByUsername(request.username());
 		if(u == null) {
 			userRepository.save(user);
 		} else {
@@ -46,17 +46,17 @@ public class UserService {
 	}
 
 	public void removeUser(String username) {
-		User user = userRepository.findUserByUsername(username);
+		User user = userRepository.findByUsername(username);
 		userRepository.delete(user);
 	}
 
-	public User getAllUsers(String username) {
-		User user = userRepository.findUserByUsername(username);
+	public User findUser(String username) {
+		User user = userRepository.findByUsername(username);
 		return user;
 	}
 
 	public void changePassword(String username, ChangePasswordDTO request) {
-		User user = userRepository.findUserByUsername(username);
+		User user = userRepository.findByUsername(username);
 		user.setPassword(request.password());
 		
 	}
