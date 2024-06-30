@@ -42,7 +42,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(e -> e.disable()).authorizeHttpRequests(e -> {
-			e.requestMatchers("/register", "/token", "/validate","/doc/addDoctor","/doc/allDoctors","/appointment/makeAppointment","/appointment/getAppointments").permitAll();
+			e.requestMatchers("/register", "/token", "/validate","/doc/allDoctors").permitAll();
 			e.anyRequest().authenticated();
 		}).sessionManagement(e -> e.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.root.controller.dto.AuthRequest;
 import com.root.controller.dto.ChangePasswordDTO;
+import com.root.controller.dto.ChangeRoleDTO;
 import com.root.controller.dto.NewUserRequest;
 import com.root.model.User;
 import com.root.security.jwt.JwtService;
@@ -64,6 +65,17 @@ public class UserController {
 		}
 
 	}
+	@PostMapping("/changeRole")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<String> changeRole(@RequestBody ChangeRoleDTO request) {
+		try {
+			userService.changeRole(request);
+			return new ResponseEntity<>("Succsessfull registration", HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 
 	@GetMapping("/get")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -72,6 +84,7 @@ public class UserController {
 	}
 
 	@PatchMapping("/{username}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_DOCTOR')")
 	public ResponseEntity<String> changePassword(@PathVariable("username") String username,
 			@RequestBody ChangePasswordDTO request) {
 		try {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public class AppointmentController {
 	private final AppointmentService appointmentService;
 
 	@PostMapping("/makeAppointment")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_DOCTOR')")
 	public ResponseEntity<String> makeAppointment(@RequestBody AppointmentRequest request) {
 
 		try {
@@ -36,6 +38,7 @@ public class AppointmentController {
 	}
 	
 	@GetMapping("/getAppointments")
+	@PreAuthorize("hasAnyRole('ROLE_DOCTOR')")
 	public List<Appointment> getAppointments() {
 		return appointmentService.getAppointments();
 		

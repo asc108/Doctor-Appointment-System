@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.root.controller.dto.ChangePasswordDTO;
+import com.root.controller.dto.ChangeRoleDTO;
 import com.root.controller.dto.NewUserRequest;
 import com.root.model.User;
 import com.root.repository.UserRepository;
@@ -67,6 +68,14 @@ public class UserService {
 
 	public void validateToken(String token) {
 		jwtService.validateToken(token);
+	}
+
+
+	public void changeRole(ChangeRoleDTO request) {
+		User user = userRepository.findByUsername(request.username());
+		user.setRole(request.role());
+		userRepository.save(user);
+		
 	}
 
 }

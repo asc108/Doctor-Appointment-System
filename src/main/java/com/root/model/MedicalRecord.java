@@ -1,5 +1,7 @@
 package com.root.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,11 +14,13 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "medical_record")
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Data	
 public class MedicalRecord {
 
@@ -29,12 +33,11 @@ public class MedicalRecord {
 	@Column(columnDefinition = "LONGTEXT")
 	private String treatment;
 
-	@OneToOne
-	@JoinColumn(name = "patient_id")
+	
+	@ManyToOne
+	@JoinColumn(name = "patient")
+	@JsonBackReference
 	private Patient patient;
 
-	@ManyToOne
-	@JoinColumn(name = "doctor_id")
-	private Doctor doctor;
 
 }
