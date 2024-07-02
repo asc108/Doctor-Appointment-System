@@ -65,6 +65,7 @@ public class UserController {
 		}
 
 	}
+
 	@PostMapping("/changeRole")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> changeRole(@RequestBody ChangeRoleDTO request) {
@@ -75,7 +76,6 @@ public class UserController {
 			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
 
 	@GetMapping("/get")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")

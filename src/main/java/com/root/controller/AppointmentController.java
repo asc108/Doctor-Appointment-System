@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.root.controller.dto.AppointmentRequest;
+import com.root.controller.dto.CancelAppointmentRequest;
 import com.root.model.Appointment;
 import com.root.service.AppointmentService;
 
@@ -42,6 +43,20 @@ public class AppointmentController {
 	public List<Appointment> getAppointments() {
 		return appointmentService.getAppointments();
 		
+	}
+	
+	@PostMapping("/cancelAppointment")
+	@PreAuthorize("hasAnyRole('ROLE_USER')")
+	public ResponseEntity<String> cancelAppointement(@RequestBody CancelAppointmentRequest request) {
+
+		try {
+			appointmentService.cancelAppointement(request);
+			return new ResponseEntity<String>("Succsessfull", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+
+		}
+
 	}
 
 }

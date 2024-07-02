@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.root.controller.dto.AppointmentRequest;
+import com.root.controller.dto.CancelAppointmentRequest;
 import com.root.model.Appointment;
 import com.root.model.Doctor;
 import com.root.model.User;
@@ -38,6 +39,11 @@ public class AppointmentService {
 	public List<Appointment> getAppointments() {
 		List<Appointment> lista = appointmentRepo.findAll();
 		return lista;
+	}
+
+	public void cancelAppointement(CancelAppointmentRequest request) {
+		User user = userRepository.findByFirstname(request.username());
+		
 	}
 
 }
