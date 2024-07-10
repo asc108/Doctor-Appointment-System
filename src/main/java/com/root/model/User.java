@@ -34,7 +34,7 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String email;
-	private int number;
+	private String number;
 	private String role;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
