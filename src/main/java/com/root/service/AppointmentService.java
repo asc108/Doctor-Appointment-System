@@ -1,11 +1,11 @@
 package com.root.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.root.controller.dto.AppointmentRequest;
-import com.root.controller.dto.CancelAppointmentRequest;
 import com.root.model.Appointment;
 import com.root.model.Doctor;
 import com.root.model.User;
@@ -41,8 +41,10 @@ public class AppointmentService {
 		return lista;
 	}
 
-	public void cancelAppointement(CancelAppointmentRequest request) {
-		User user = userRepository.findByFirstname(request.username());
+	public void cancelAppointement(Integer request) {
+		Optional<User> user = userRepository.findById(request);
+		Appointment appointment = appointmentRepo.findByUser(user.get());
+		appointmentRepo.delete(appointment);
 		
 	}
 
