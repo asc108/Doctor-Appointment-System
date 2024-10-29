@@ -8,7 +8,7 @@ Example of Java Spring Boot application that provides a variety of functionaliti
 + JTW Token : JWT Token is used for authentication.
 + Database integration : Integration with MySQL for data storage.
 
-# Database model and enteties
+# Database model and entities
 ![Sql-ER DIAGRAM](https://github.com/asc108/Doctor-Appointment-System/assets/32851529/de880893-cd27-48c1-821b-ffde9f5ea8ed)
 
 # In depth
